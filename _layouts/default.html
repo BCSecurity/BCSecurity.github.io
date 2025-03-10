@@ -21,10 +21,13 @@ layout: null
     />
   </head>
   <body>
-    <!-- MATRIX BACKGROUND CANVAS -->
+    <!-- 1) MATRIX BACKGROUND CANVAS -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- NAVBAR -->
+    <!-- 2) A DARK OVERLAY to dim/blur the matrix a bit -->
+    <div id="matrix-overlay"></div>
+
+    <!-- 3) NAVBAR -->
     <nav class="navbar navbar-expand-lg custom-navbar">
       <div class="container-fluid">
         <a class="navbar-brand glitch-text" href="{{ '/' | absolute_url }}">
@@ -60,8 +63,8 @@ layout: null
       </div>
     </nav>
 
-    <!-- MAIN WRAPPER (semi-transparent background) -->
-    <div class="main-wrapper container py-5">
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="container py-5 main-content">
       {{ content }}
     </div>
 
@@ -74,7 +77,7 @@ layout: null
       const ctx = canvas.getContext("2d");
 
       let W, H;
-      let fontSize = 16;
+      const fontSize = 16;
       let columns;
       let drops = [];
 
@@ -84,30 +87,23 @@ layout: null
         canvas.width = W;
         canvas.height = H;
 
-        // 1 column per fontSize
         columns = Math.floor(W / fontSize);
-        // Start drops at random
         drops = Array(columns).fill(1);
       }
 
       function drawMatrix() {
-        // Slightly clear entire canvas using alpha
+        // translucent black to fade out characters gradually
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, W, H);
 
-        ctx.fillStyle = "#0f0"; // green
+        ctx.fillStyle = "#0f0";
         ctx.font = fontSize + "px monospace";
 
         for (let i = 0; i < columns; i++) {
-          const text = String.fromCharCode(
-            0x30A0 + Math.random() * 96
-          );
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          const char = String.fromCharCode(0x30A0 + Math.random() * 96);
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
 
-          if (
-            drops[i] * fontSize > H &&
-            Math.random() > 0.975
-          ) {
+          if (drops[i] * fontSize > H && Math.random() > 0.975) {
             drops[i] = 0;
           }
           drops[i]++;
