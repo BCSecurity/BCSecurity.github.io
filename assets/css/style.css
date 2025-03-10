@@ -1,45 +1,25 @@
-/* Basic Hacker Theme Colors */
+/* Force black background and bright green text */
 body {
-  background-color: #000;  /* black */
-  color: #3f3;             /* greenish text (#3f3 is what the Hacker theme uses) */
+  background-color: #000 !important; 
+  color: #3f3 !important; 
   font-family: "Lucida Console", Monaco, monospace;
-  margin: 0;
-  padding: 0;
 }
 
-/* Nav Bar Styling */
-#navbar {
-  background-color: #000; /* same black background */
-  border-bottom: 2px solid #3f3;
-  padding: 0.5rem 1rem;
+/* Override bootstrap “success” color if you want a special neon green: */
+.text-success, .nav-link.text-success {
+  color: #00ff00 !important; /* pure green #00ff00, or #0f0, etc. */
 }
 
-#navbar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex; /* horizontal menu */
-  gap: 1rem;
+/* Toggler icon color (hamburger menu on mobile) might need an override: */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2300ff00' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-#navbar li {
-  display: inline-block;
-}
-
-#navbar a {
-  color: #3f3;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-#navbar a:hover {
-  text-decoration: underline;
-}
-
-/* Centered Content on Landing */
-#landing-content {
-  text-align: center; /* center text, images, etc. */
-  max-width: 800px;
-  margin: 4rem auto;  /* top/bottom, left/right auto for centering */
-  padding: 0 1rem;
+/* If your image is missing margins or looks odd, adjust it: */
+.myprofile-pic {
+  display: block; 
+  margin: 0 auto; /* center horizontally */
+  max-width: 200px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
