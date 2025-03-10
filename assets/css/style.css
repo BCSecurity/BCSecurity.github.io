@@ -1,21 +1,19 @@
-/* Base Hacker Colors + Fonts */
+/* 1) Base Hacker Colors + Font */
 body {
   background-color: #000 !important;
-  color: #0f0 !important; /* super bright green */
+  color: #0f0 !important; /* bright neon green */
   font-family: "Lucida Console", Monaco, monospace;
   margin: 0;
   padding: 0;
 }
 
-/* Neon border for the navbar bottom */
-.neon-border-bottom {
-  border-bottom: 3px solid #00ff00 !important; 
+/* 2) Force Navbar or Link Colors if needed */
+.nav-link.text-success,
+.navbar-brand.text-success {
+  color: #00ff00 !important;
 }
 
-/* 
-  Glitch text effect 
-  We'll do a keyframe that shifts text shadow and uses an "after" pseudo-element 
-*/
+/* 3) The glitch-text effect for headings (optional) */
 .glitch-text {
   position: relative;
   display: inline-block;
@@ -24,22 +22,7 @@ body {
   animation: glitch 1.5s infinite;
 }
 
-/* "Ghost" duplicates for the glitch effect */
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  color: #00ff00;
-  overflow: hidden;
-  clip: rect(0, 900px, 0, 0);
-}
-
-/* Because we didn't set data-text, let's re-use the actual text via JS or we can just copy the text. 
-   If you want a "manual" approach, do:
-   <span class="glitch-text" data-text="BCSecurity">BCSecurity</span>
-*/
-
+/* Basic glitch keyframes */
 @keyframes glitch {
   0% {
     text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
@@ -61,20 +44,53 @@ body {
   }
 }
 
-/* Profile Pic: center on small screens, right-float on medium screens. */
-.myprofile-pic {
-  max-width: 280px;
-  border: 2px solid #0f0;
-  border-radius: 8px;
+/* 4) Container for the circular pic + neon ring animation */
+.profile-pic-container {
+  position: relative;
+  display: inline-block;  /* so we can center if needed */
+  width: 220px;
+  height: 220px;
   margin: 1rem 0;
 }
 
-.float-md-end {
-  float: none;
+/* The actual <img> - circular shape */
+.myprofile-pic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;  /* ensure the image fills the circle without distortion */
+  border: 2px solid #0f0; /* simple fallback border */
+  z-index: 2;
+  position: relative;
 }
-@media (min-width: 768px) {
-  .float-md-end {
-    float: right;
-    margin-left: 2rem;
+
+/* The neon ring: use a pseudo-element around the container */
+.profile-pic-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;  /* slightly bigger than .profile-pic-container for a "glow ring" outside the circle */
+  height: 250px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  animation: pulseRing 2.5s infinite;
+  z-index: 1;  /* behind the actual image */
+}
+
+/* 5) Keyframes for the pulsing ring effect */
+@keyframes pulseRing {
+  0%, 100% {
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  }
+  50% {
+    box-shadow: 0 0 25px #00ff00, 0 0 50px #00ff00;
   }
 }
+
+/* 6) Typewriter effect is handled by JS targeting .typed-role. 
+   If you need a fallback style, you can define .typed-role {
+   } here.
+*/
