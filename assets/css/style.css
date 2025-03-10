@@ -47,7 +47,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4); 
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px); 
 }
 
 /* 5) MAIN CONTENT on home page */
