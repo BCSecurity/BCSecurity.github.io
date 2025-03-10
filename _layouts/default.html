@@ -8,25 +8,23 @@ layout: null
     <meta charset="UTF-8">
     <title>{{ page.title }} | {{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Link to your custom stylesheet below -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    <!-- No extra {{ content }} calls here -->
   </head>
   <body>
-    <header>
-      <h1><a href="{{ '/' | absolute_url }}">{{ site.title }}</a></h1>
-      <p>{{ site.description }}</p>
-    </header>
+    <!-- NAV BAR -->
+    <nav id="navbar">
+      <ul>
+        <li><a href="{{ '/' | absolute_url }}">Home</a></li>
+        <li><a href="{{ '/threat-reports/' | absolute_url }}">Threat Reports</a></li>
+        <li><a href="{{ '/iocs/' | absolute_url }}">IoCs</a></li>
+        <li><a href="{{ '/ctf-labs/' | absolute_url }}">CTF/Labs</a></li>
+      </ul>
+    </nav>
 
-    <div id="wrapper">
-      <aside id="sidebar">
-        <img src="{{ '/assets/images/myphoto.png' | relative_url }}" alt="My Photo" class="sidebar-photo" />
-        <strong>BCSecurity</strong><br />
-        CSOC Engineer – MDR
-      </aside>
-
-      <main id="main-content">
-        {{ content }}
-      </main>
+    <!-- MAIN WRAPPER FOR CENTERED CONTENT -->
+    <div id="landing-content">
+      {{ content }}
     </div>
   </body>
 </html>
