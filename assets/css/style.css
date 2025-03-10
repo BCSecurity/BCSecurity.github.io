@@ -3,19 +3,24 @@ body {
   background-color: #000 !important; 
   color: #3f3 !important; 
   font-family: "Lucida Console", Monaco, monospace;
+  margin: 0;
+  padding: 0;
 }
 
-/* Override bootstrap “success” color if you want a special neon green: */
-.text-success, .nav-link.text-success {
-  color: #00ff00 !important; /* pure green #00ff00, or #0f0, etc. */
+/* Override Bootstrap “success” color to a neon green: */
+.text-success,
+.nav-link.text-success {
+  color: #00ff00 !important; /* or #0f0, #3f3, your preference */
 }
 
-/* Toggler icon color (hamburger menu on mobile) might need an override: */
+/* Mobile toggle icon (hamburger) color override */
 .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2300ff00' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' 
+  xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2300ff00' stroke-width='2' 
+  stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* If your image is missing margins or looks odd, adjust it: */
+/* Center your profile photo */
 .myprofile-pic {
   display: block; 
   margin: 0 auto; /* center horizontally */
