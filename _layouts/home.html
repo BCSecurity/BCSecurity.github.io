@@ -5,15 +5,16 @@ layout: null
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en-US' }}">
   <head>
-    <!-- Inline critical styles to force dark background and preloader styles immediately -->
+    <!-- 1) Inline critical styles: black background + preloader styling -->
     <style>
+      /* Force immediate black background to prevent white flash */
       html, body {
         background: #000 !important;
         color: #0f0;
         margin: 0;
         padding: 0;
       }
-      /* Preloader overlay */
+      /* Preloader overlay (full screen) */
       #preloader {
         position: fixed;
         top: 0;
@@ -25,6 +26,7 @@ layout: null
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column; /* so spinner & countdown stack vertically */
       }
       /* Neon spinner */
       .spinner {
@@ -37,21 +39,31 @@ layout: null
         box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
       }
       @keyframes spin {
-        0% { transform: rotate(0deg); }
+        0%   { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
+      /* Countdown text styling */
+      #countdown-text {
+        margin-top: 1rem;
+        font-size: 1.4rem;
+        font-family: "Lucida Console", Monaco, monospace;
+        color: #00ff00;
+        text-shadow: 0 0 5px #00ff00;
+      }
     </style>
-    
+
+    <!-- 2) External resources -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       integrity="sha512-VGB9...omittedForBrevity..."
-      crossorigin="anonymous" referrerpolicy="no-referrer"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000">
-    
+
     <!-- Bootstrap 5 CSS from CDN -->
     <link
       rel="stylesheet"
@@ -64,19 +76,21 @@ layout: null
     />
     <title>{{ page.title }} | {{ site.title }}</title>
   </head>
+
   <body>
-    <!-- Preloader with Neon Spinner -->
+    <!-- 3) Preloader with Neon Spinner + 5-sec countdown -->
     <div id="preloader">
       <div class="spinner"></div>
+      <div id="countdown-text"></div>
     </div>
-    
-    <!-- MATRIX BACKGROUND CANVAS -->
+
+    <!-- 4) Matrix Canvas -->
     <canvas id="matrix-canvas"></canvas>
-    
-    <!-- DARK OVERLAY to dim/blur the matrix a bit -->
+
+    <!-- 5) Overlay (now fully transparent if you want zero coverage) -->
     <div id="matrix-overlay"></div>
-    
-    <!-- NAVBAR -->
+
+    <!-- 6) Navbar (transparent to see matrix behind) -->
     <nav class="navbar navbar-expand-lg custom-navbar">
       <div class="container-fluid">
         <a class="navbar-brand glitch-text" href="{{ '/' | absolute_url }}">
@@ -111,16 +125,16 @@ layout: null
         </div>
       </div>
     </nav>
-    
-    <!-- MAIN CONTENT WRAPPER -->
+
+    <!-- 7) Main Content -->
     <div class="container py-5 main-content">
       {{ content }}
     </div>
-    
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- MATRIX RAIN SCRIPT -->
+
+    <!-- Matrix Rain Script -->
     <script>
       const canvas = document.getElementById("matrix-canvas");
       const ctx = canvas.getContext("2d");
@@ -128,7 +142,7 @@ layout: null
       const fontSize = 16;
       let columns;
       let drops = [];
-      
+
       function resizeCanvas() {
         W = window.innerWidth;
         H = window.innerHeight;
@@ -137,7 +151,7 @@ layout: null
         columns = Math.floor(W / fontSize);
         drops = Array(columns).fill(1);
       }
-      
+
       function drawMatrix() {
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, W, H);
@@ -152,20 +166,28 @@ layout: null
           drops[i]++;
         }
       }
-      
+
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
       setInterval(drawMatrix, 50);
     </script>
-    
-    <!-- JavaScript to remove preloader when page is loaded -->
+
+    <!-- 8) Preloader countdown (5 seconds) -->
     <script>
-      window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
+      let countdown = 5;
+      const preloader = document.getElementById('preloader');
+      const countdownElement = document.getElementById('countdown-text');
+      countdownElement.textContent = countdown;
+
+      const timer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        if(countdown <= 0) {
+          clearInterval(timer);
+          // Hide preloader
           preloader.style.display = 'none';
         }
-      });
+      }, 1000);
     </script>
   </body>
 </html>
