@@ -1,100 +1,141 @@
-/* 1) Use the imported "Share Tech Mono" from Google Fonts */
+/* 1) Base look: dark gray + green text */
 body {
-  font-family: 'Share Tech Mono', monospace;
-  color: #00ff00; /* default neon green text */
   margin: 0;
   padding: 0;
+  background-color: #1A1A1A; /* Dark-ish gray */
+  font-family: "Lucida Console", Monaco, monospace;
+  color: #00ff00;
 }
 
-/* 2) Subtle background gradient */
-.custom-bg {
-  background: linear-gradient(160deg, #222 0%, #111 80%);
-  /* You could lighten or darken #222 or #111 to taste */
+/* Keep main content text as success color */
+.main-content {
+  color: #00ff00; 
+  position: relative; /* so z-index layers above the canvas */
 }
 
-/* 3) Basic neon borders for navbar & footer */
-.neon-border-bottom {
-  border-bottom: 3px solid #00ff00 !important;
-}
-.neon-border-top {
-  border-top: 3px solid #00ff00 !important;
+/* 2) Navbar styling */
+.custom-navbar {
+  background-color: transparent; /* Let the canvas show behind */
+  border-bottom: 2px solid #00ff00;
+  z-index: 10;
+  position: relative;
 }
 
-/* 4) Glitch text effect for headings */
+.navbar-brand.glitch-text {
+  color: #00ff00 !important;
+}
+
+.nav-link {
+  color: #00ff00 !important;
+}
+
+/* 3) Glitch text effect (site title, etc.) */
 .glitch-text {
   position: relative;
   display: inline-block;
-  color: #0f0;
-  animation: glitch 1.5s infinite;
+  animation: glitch 2s infinite;
 }
 
-/* Keyframes for glitch */
 @keyframes glitch {
-  0%, 100% {
-    text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
+  0% {
+    text-shadow: 1px 0 #ff00c1, -1px -1px #00fff9;
   }
-  20% {
-    text-shadow: 2px 2px #ff00c1, -2px 0 #00fff9;
+  25% {
+    text-shadow: -1px 2px #ff00c1, 2px 0 #00fff9;
   }
-  40% {
-    text-shadow: -2px 2px #ff00c1, 2px 0 #00fff9;
+  50% {
+    text-shadow: -2px -2px #ff00c1, 3px 2px #00fff9;
   }
-  60% {
-    text-shadow: -2px -2px #ff00c1, 2px 2px #00fff9;
+  75% {
+    text-shadow: 2px 2px #ff00c1, -1px 0 #00fff9;
   }
-  80% {
-    text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
+  100% {
+    text-shadow: 1px 0 #ff00c1, -1px -1px #00fff9;
   }
 }
 
-/* 5) Profile Pic + Neon Ring */
+/* 4) Profile pic as a circle with neon ring */
 .profile-pic-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  display: inline-block;
+  width: 220px;
+  height: 220px;
 }
 
-/* Make the image circular */
 .myprofile-pic {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
+  border-radius: 50%;
   border: 2px solid #00ff00;
   z-index: 2;
   position: relative;
 }
 
-/* Neon ring: ::before pseudo-element around the container */
+/* Neon ring around the pic, slightly bigger, pulsing */
 .profile-pic-container::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 230px;  /* slightly bigger than the container */
-  height: 230px;
+  width: 260px;
+  height: 260px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 2px solid #00ff00;
-  box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
-  animation: pulseRing 2.5s infinite;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  animation: ringPulse 2.5s infinite;
   z-index: 1;
 }
 
-/* Pulse ring animation */
-@keyframes pulseRing {
+@keyframes ringPulse {
   0%, 100% {
-    box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
   }
   50% {
-    box-shadow: 0 0 30px #00ff00, 0 0 60px #00ff00;
+    box-shadow: 0 0 25px #00ff00, 0 0 40px #00ff00;
   }
 }
 
-/* 6) Toggler icon color (mobile nav) override if needed */
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg 
-     viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath 
-     stroke='%2300ff00' stroke-width='2' stroke-linecap='round' 
-     stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+/* 5) Canvas styling: fixed behind everything */
+#matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; /* behind content */
+  width: 100%;
+  height: 100%;
+}
+
+/* 6) Mouse glow effect: appended circles fade out */
+#mouse-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* let clicks pass through */
+  z-index: 11; /* above the canvas, below the content if you prefer */
+}
+
+.glow-circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 255, 0, 0.4);
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  animation: fadeOut 1s forwards;
+  pointer-events: none;
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
