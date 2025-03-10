@@ -5,7 +5,7 @@ layout: null
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en-US' }}">
   <head>
-    <!-- Inline critical styles to force dark background + preloader styling -->
+    <!-- Inline critical styles to force dark background + preloader styles -->
     <style>
       /* Immediate dark background to avoid white flash */
       html, body {
@@ -27,8 +27,8 @@ layout: null
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        opacity: 1;               /* We'll fade this out */
-        transition: opacity 0.8s; /* fade-out transition */
+        opacity: 1;
+        transition: opacity 0.8s;
       }
       /* Neon spinner */
       .spinner {
@@ -53,7 +53,7 @@ layout: null
         text-shadow: 0 0 5px #00ff00;
       }
     </style>
-
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -62,9 +62,9 @@ layout: null
       referrerpolicy="no-referrer"
     />
     <meta charset="UTF-8" />
-    <title>{{ page.title }} | {{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <meta name="theme-color" content="#000000">
+    
     <!-- Bootstrap 5 CSS from CDN -->
     <link
       rel="stylesheet"
@@ -75,21 +75,22 @@ layout: null
       rel="stylesheet"
       href="{{ '/assets/css/style.css' | relative_url }}"
     />
+    <title>{{ page.title }} | {{ site.title }}</title>
   </head>
   <body>
-    <!-- Preloader with Neon Spinner + 3-sec countdown -->
+    <!-- Preloader with Neon Spinner + 3-second countdown -->
     <div id="preloader">
       <div class="spinner"></div>
       <div id="countdown-text"></div>
     </div>
-
-    <!-- 1) MATRIX BACKGROUND CANVAS -->
+    
+    <!-- MATRIX BACKGROUND CANVAS -->
     <canvas id="matrix-canvas"></canvas>
-
-    <!-- 2) A DARK OVERLAY to dim/blur the matrix a bit -->
+    
+    <!-- DARK OVERLAY to dim/blur the matrix a bit -->
     <div id="matrix-overlay"></div>
-
-    <!-- 3) NAVBAR -->
+    
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg custom-navbar">
       <div class="container-fluid">
         <a class="navbar-brand glitch-text" href="{{ '/' | absolute_url }}">
@@ -124,23 +125,23 @@ layout: null
         </div>
       </div>
     </nav>
-
+    
     <!-- MAIN CONTENT WRAPPER -->
     <div class="container py-5 main-content">
       {{ content }}
-
-      <!-- 4) "Cyber Tip" Widget (example) -->
+      
+      <!-- Example widget: Cyber Tip Widget -->
       <div class="mt-5 p-3 text-box">
         <h3 class="mb-3">Cyber Tip of the Day</h3>
         <p id="cyber-tip" style="margin: 0;">
-          <!-- Filled by JS with a random tip -->
+          <!-- Tip will be injected via JavaScript -->
         </p>
       </div>
     </div>
-
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!-- MATRIX RAIN SCRIPT -->
     <script>
       const canvas = document.getElementById("matrix-canvas");
@@ -149,76 +150,75 @@ layout: null
       const fontSize = 16;
       let columns;
       let drops = [];
-
+      
       function resizeCanvas() {
         W = window.innerWidth;
         H = window.innerHeight;
         canvas.width = W;
         canvas.height = H;
-
         columns = Math.floor(W / fontSize);
         drops = Array(columns).fill(1);
       }
-
+      
       function drawMatrix() {
-        // translucent black for trailing effect
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, W, H);
-
         ctx.fillStyle = "#0f0";
         ctx.font = fontSize + "px monospace";
-
         for (let i = 0; i < columns; i++) {
           const char = String.fromCharCode(0x30A0 + Math.random() * 96);
           ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
           if (drops[i] * fontSize > H && Math.random() > 0.975) {
             drops[i] = 0;
           }
           drops[i]++;
         }
       }
-
+      
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
       setInterval(drawMatrix, 50);
     </script>
-
-    <!-- PRELOADER: 3-second countdown + fade out -->
+    
+    <!-- PRELOADER REMOVAL: 3-second countdown + fade-out, plus backup on window load -->
     <script>
-      let countdown = 3;
-      const preloader = document.getElementById('preloader');
-      const countdownElement = document.getElementById('countdown-text');
-
-      countdownElement.textContent = countdown;
-
-      const timer = setInterval(() => {
-        countdown--;
-        countdownElement.textContent = countdown;
-
-        if(countdown <= 0) {
-          clearInterval(timer);
-          // Fade out preloader
+      function removePreloader() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
           preloader.style.opacity = '0';
           setTimeout(() => {
             preloader.remove();
           }, 800);
         }
-      }, 1000);
-    </script>
+      }
 
-    <!-- Cyber Tip Widget: random tip in #cyber-tip -->
+      let countdown = 3;
+      const countdownElement = document.getElementById('countdown-text');
+      countdownElement.textContent = countdown;
+      const timer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        if (countdown <= 0) {
+          clearInterval(timer);
+          removePreloader();
+        }
+      }, 1000);
+
+      window.addEventListener('load', function() {
+        removePreloader();
+      });
+    </script>
+    
+    <!-- Cyber Tip Widget: random tip injection -->
     <script>
       const tips = [
         "Always use strong, unique passwords for each account.",
-        "Keep software up to date to patch known vulnerabilities.",
-        "Enable multi-factor authentication wherever possible.",
-        "Encrypt sensitive data at rest and in transit.",
-        "Regularly backup important files to offline storage.",
-        "Beware of phishing emails and suspicious links.",
-        "Use a password manager to generate and store passwords."
+        "Keep your software up to date to patch vulnerabilities.",
+        "Enable multi-factor authentication for added security.",
+        "Be cautious of phishing emails and suspicious links.",
+        "Regularly back up important data to secure storage.",
+        "Use a reputable password manager to manage credentials."
       ];
-
       const randomTip = tips[Math.floor(Math.random() * tips.length)];
       const tipElement = document.getElementById("cyber-tip");
       if (tipElement) {
