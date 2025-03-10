@@ -3,10 +3,7 @@ layout: home
 title: "Home"
 ---
 
-<!-- 
-  Wrap the row containing the profile image + text 
-  in a .text-box for better readability.
--->
+<!-- Example: a row with your neon ring image plus text -->
 <div class="text-box">
   <div class="row align-items-center justify-content-center">
     <div class="col-md-4 text-center mb-4 mb-md-0">
@@ -22,21 +19,56 @@ title: "Home"
       <h1 class="display-4 glitch-text">BCSecurity</h1>
       <h4>CSOC Engineer - MDR</h4>
       <p>
-        Hello! BCSecurity here, currently a Cyber Security Engineer focusing on Incident Response 
-        and Threat Intelligence. I also enjoy learning about malware behaviors...
+        Hello! I'm currently a Cyber Security Engineer focusing on Incident Response 
+        and Threat Intelligence. I also enjoy learning about malware behaviors. What this blog is all about :
       </p>
       <ul>
-        <li>Static/Dynamic Malware Analysis</li>
-        <li>Sharing IoCs</li>
-        <li>Incident Response Reports</li>
-        <li>Threat Reports</li>
-        <li>General knowledge about security</li>
-        <li>News</li>
-        <li>Helping others understand cyber threats</li>
+         <li>Static/Dynamic Malware Analysis</li>
+         <li>Sharing IoCs</li>
+         <li>Incident Response Reports</li>
+         <li>Threat Reports</li>
       </ul>
-      <p>
-        Check out my <a href="/blog/">latest posts</a>!
+      <p>Check out my <a href="/blog/">latest posts</a>!</p>
+ <!-- 1) LinkedIn link with icon -->
+      <p class="mt-4">
+        <strong>Find me on:</strong> 
+        <a 
+          href="www.linkedin.com/in/augustin-a-5a9a72160E" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
       </p>
+<!-- 2) Hacker Quote Widget -->
+      <div class="mt-4" id="quote-widget">
+        <strong>Cyber Quote of the Moment:</strong>
+        <div id="quote-text" style="margin-top: 0.5rem;">
+          <!-- Filled by JS below -->
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- Small inline script for the Hacker Quote Widget -->
+<script>
+  // Array of hacking/cybersecurity quotes
+  const quotes = [
+    "“The quieter you become, the more you are able to hear.” — Kali Linux motto",
+    "“Hackers are today's explorers.” — Paul Graham",
+    "“The only system which is truly secure is one which is switched off and unplugged.” — Gene Spafford",
+    "“If you think technology can solve your security problems, then you don’t understand the problems and you don’t understand the technology.” — Bruce Schneier",
+    "“Hackers are breaking the systems for profit. Before, it was about intellectual curiosity and pursuit of knowledge.” — Kevin Mitnick"
+  ];
+
+  // Grab a random quote
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  // Display it in the #quote-text div
+  document.addEventListener("DOMContentLoaded", () => {
+    const quoteText = document.getElementById("quote-text");
+    if (quoteText) {
+      quoteText.textContent = randomQuote;
+    }
+  });
+</script>
