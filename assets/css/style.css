@@ -1,36 +1,38 @@
-/* GLOBAL RESETS */
+/* 0) Immediate fallback if inline style not applied (dark BG) */
 html, body {
   margin: 0;
   padding: 0;
-}
-
-/* 1) SOLID BACKGROUND FOR default layout pages */
-.solid-bg {
-  background-color: #111; /* or any solid color you like */
+  background-color: #000 !important;
   color: #0f0;
   font-family: "Lucida Console", Monaco, monospace;
 }
 
-/* 2) HOME PAGE NAVBAR */
-.home-navbar {
-  background-color: rgba(0, 0, 0, 0.9); 
+/* 1) SOLID BACKGROUND FOR default layout pages */
+.solid-bg {
+  background-color: #111; 
+  color: #0f0;
+}
+
+/* 2) HOME PAGE NAVBAR (transparent) */
+.custom-navbar {
+  background-color: transparent !important; /* see matrix behind it */
   border-bottom: 2px solid #0f0;
   z-index: 10;
   position: relative;
 }
 
-/* 3) TEXT-BOX for the landing page content (the big translucent box) */
+/* 3) TEXT-BOX for landing page content (translucent black) */
 .text-box {
-  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
-  border: 2px solid #0f0;               /* neon green border */
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #0f0;
   border-radius: 8px;
   color: #0f0;
   box-shadow: 0 0 10px rgba(0,255,0,0.5);
   margin-top: 2rem;
-  padding: 2rem;                        /* spacing inside the box */
+  padding: 2rem;
 }
 
-/* 4) MATRIX CANVAS & OVERLAY (for the home page matrix effect) */
+/* 4) MATRIX CANVAS & PARTIAL BLUR OVERLAY */
 #matrix-canvas {
   position: fixed;
   top: 0;
@@ -39,22 +41,22 @@ html, body {
   width: 100vw;
   height: 100vh;
 }
+
 #matrix-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1; 
+  z-index: -1;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4); 
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px); /* partial blur behind your content */
 }
 
 /* 5) MAIN CONTENT on home page */
 .home-content {
-  min-height: 100vh; /* fill screen if desired */
+  min-height: 100vh;
   color: #0f0;
-  font-family: "Lucida Console", Monaco, monospace;
 }
 
 /* 6) NAV LINKS, glitch text, etc. */
@@ -89,7 +91,7 @@ html, body {
   position: relative;
   width: 220px;
   height: 220px;
-  margin: 0 auto; /* center horizontally in its col or text-center container */
+  margin: 0 auto;
 }
 .myprofile-pic {
   width: 100%;
