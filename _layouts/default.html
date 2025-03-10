@@ -1,0 +1,47 @@
+---
+layout: null
+---
+
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <!-- The Hacker theme’s main CSS (injected remotely) is still applied;
+         your custom CSS will load after it. -->
+    {{ content | prepend: site.baseurl }}
+  </head>
+  <body>
+    <header>
+      <h1><a href="{{ '/' | absolute_url }}">{{ site.title }}</a></h1>
+      <p>{{ site.description }}</p>
+    </header>
+
+    <!-- Wrap everything in a flex container so we can have a sidebar + main content -->
+    <div id="wrapper">
+      <!-- SIDEBAR -->
+      <aside id="sidebar">
+        <!-- Change to your actual image path -->
+        <img src="{{ '/assets/images/biophoto.jpg' | relative_url }}" alt="My Photo" class="sidebar-photo" />
+        
+        <!-- Name in bold + role/title -->
+        <strong>BCSecurity</strong><br />
+        CSOC Engineer - MDR
+
+        <!-- Add more info or social links if desired -->
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main id="main-content">
+        <section>
+          {{ content }}
+        </section>
+        <footer>
+          <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
