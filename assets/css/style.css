@@ -1,28 +1,25 @@
-/* 0) FORCE DARK BACKGROUND IMMEDIATELY (helps avoid white flash)
-   Note: We also do this inline in home.html, but we keep it here as fallback. */
+/* GLOBAL RESETS */
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #000 !important;
-  color: #0f0;
-  font-family: "Lucida Console", Monaco, monospace;
 }
 
 /* 1) SOLID BACKGROUND FOR default layout pages */
 .solid-bg {
-  background-color: #111; /* used for pages that do not have matrix effect */
+  background-color: #111; /* or any solid color you like */
   color: #0f0;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
-/* 2) HOME PAGE NAVBAR - fully transparent for matrix behind it */
-.custom-navbar {
-  background-color: transparent !important; /* no black bar up top */
-  border-bottom: 2px solid #0f0;            /* keep neon border if desired */
+/* 2) HOME PAGE NAVBAR */
+.home-navbar {
+  background-color: rgba(0, 0, 0, 0.9); 
+  border-bottom: 2px solid #0f0;
   z-index: 10;
   position: relative;
 }
 
-/* 3) TEXT-BOX for landing page content (translucent black box) */
+/* 3) TEXT-BOX for the landing page content (the big translucent box) */
 .text-box {
   background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
   border: 2px solid #0f0;               /* neon green border */
@@ -30,10 +27,10 @@ html, body {
   color: #0f0;
   box-shadow: 0 0 10px rgba(0,255,0,0.5);
   margin-top: 2rem;
-  padding: 2rem;
+  padding: 2rem;                        /* spacing inside the box */
 }
 
-/* 4) MATRIX CANVAS & OVERLAY (transparent so matrix is visible) */
+/* 4) MATRIX CANVAS & OVERLAY (for the home page matrix effect) */
 #matrix-canvas {
   position: fixed;
   top: 0;
@@ -46,17 +43,18 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: -1; 
   width: 100vw;
   height: 100vh;
-  background: transparent;       /* no black overlay */
-  backdrop-filter: none;         /* remove blur if you want no coverage at all */
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(2px);
 }
 
 /* 5) MAIN CONTENT on home page */
 .home-content {
-  min-height: 100vh;
+  min-height: 100vh; /* fill screen if desired */
   color: #0f0;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 /* 6) NAV LINKS, glitch text, etc. */
@@ -91,7 +89,7 @@ html, body {
   position: relative;
   width: 220px;
   height: 220px;
-  margin: 0 auto;
+  margin: 0 auto; /* center horizontally in its col or text-center container */
 }
 .myprofile-pic {
   width: 100%;
