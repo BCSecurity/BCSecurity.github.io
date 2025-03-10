@@ -19,21 +19,18 @@ html, body {
   position: relative;
 }
 
-/* 3) TEXT-BOX for the landing page content */
+/* 3) TEXT-BOX for the landing page content (the big translucent box) */
 .text-box {
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 2px solid #0f0;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
+  border: 2px solid #0f0;               /* neon green border */
   border-radius: 8px;
   color: #0f0;
   box-shadow: 0 0 10px rgba(0,255,0,0.5);
   margin-top: 2rem;
+  padding: 2rem;                        /* spacing inside the box */
 }
 
-/* If you want the entire row (image+text) in that box, 
-   move the .text-box around your row in index.md
-*/
-
-/* 4) MATRIX CANVAS & OVERLAY */
+/* 4) MATRIX CANVAS & OVERLAY (for the home page matrix effect) */
 #matrix-canvas {
   position: fixed;
   top: 0;
@@ -55,7 +52,7 @@ html, body {
 
 /* 5) MAIN CONTENT on home page */
 .home-content {
-  min-height: 100vh; /* fill screen if you want */
+  min-height: 100vh; /* fill screen if desired */
   color: #0f0;
   font-family: "Lucida Console", Monaco, monospace;
 }
@@ -70,7 +67,6 @@ html, body {
   animation: glitch 2s infinite;
 }
 @keyframes glitch {
-  /* same glitch keyframes as before */
   0% {
     text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
   }
@@ -87,12 +83,13 @@ html, body {
     text-shadow: 1px 0 #ff00c1, -1px -1px #00fff9;
   }
 }
+
 /* 7) NEON RING around profile pic */
 .profile-pic-container {
   position: relative;
   width: 220px;
   height: 220px;
-  margin: 0 auto; /* center horizontally inside a text-center parent */
+  margin: 0 auto; /* center horizontally in its col or text-center container */
 }
 .myprofile-pic {
   width: 100%;
