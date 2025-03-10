@@ -1,14 +1,16 @@
-/* GLOBAL RESETS */
+/* 0) FORCE DARK BACKGROUND IMMEDIATELY (helps avoid white flash) */
 html, body {
   margin: 0;
   padding: 0;
+  background-color: #000 !important; /* ensures the initial paint is black */
+  color: #0f0;                      /* optional default text color */
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 /* 1) SOLID BACKGROUND FOR default layout pages */
 .solid-bg {
   background-color: #111; /* or any solid color you like */
   color: #0f0;
-  font-family: "Lucida Console", Monaco, monospace;
 }
 
 /* 2) HOME PAGE NAVBAR */
@@ -54,7 +56,6 @@ html, body {
 .home-content {
   min-height: 100vh; /* fill screen if desired */
   color: #0f0;
-  font-family: "Lucida Console", Monaco, monospace;
 }
 
 /* 6) NAV LINKS, glitch text, etc. */
