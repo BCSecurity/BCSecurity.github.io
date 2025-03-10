@@ -31,7 +31,7 @@ title: "Home"
       <p class="mt-4">
         <strong>Find me on:</strong> 
         <a 
-          href="https://www.linkedin.com/in/augustin-a-5a9a72160E" 
+          href="www.linkedin.com/in/augustin-a-5a9a72160" 
           target="_blank" 
           rel="noopener noreferrer"
         >
