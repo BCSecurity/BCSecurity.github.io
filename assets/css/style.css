@@ -1,23 +1,47 @@
-/* 1) Zero out margins, fix the body for the background */
+/* GLOBAL RESETS */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  background: #000; /* fallback if canvas fails */
+}
+
+/* 1) SOLID BACKGROUND FOR default layout pages */
+.solid-bg {
+  background-color: #111; /* or any solid color you like */
+  color: #0f0;
   font-family: "Lucida Console", Monaco, monospace;
 }
 
-/* 2) Matrix canvas behind everything */
+/* 2) HOME PAGE NAVBAR */
+.home-navbar {
+  background-color: rgba(0, 0, 0, 0.9); 
+  border-bottom: 2px solid #0f0;
+  z-index: 10;
+  position: relative;
+}
+
+/* 3) TEXT-BOX for the landing page content */
+.text-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #0f0;
+  border-radius: 8px;
+  color: #0f0;
+  box-shadow: 0 0 10px rgba(0,255,0,0.5);
+  margin-top: 2rem;
+}
+
+/* If you want the entire row (image+text) in that box, 
+   move the .text-box around your row in index.md
+*/
+
+/* 4) MATRIX CANVAS & OVERLAY */
 #matrix-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -2; /* so overlay can be -1 or 0 */
+  z-index: -2;
   width: 100vw;
   height: 100vh;
 }
-
-/* 3) Dark overlay to dim/blur the matrix */
 #matrix-overlay {
   position: fixed;
   top: 0;
@@ -25,55 +49,28 @@ html, body {
   z-index: -1; 
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4); /* 40% black */
-  backdrop-filter: blur(2px); /* slight blur */
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(2px);
 }
 
-/* 4) A solid navbar with neon border */
-.custom-navbar {
-  background-color: #111 !important; 
-  border-bottom: 2px solid #00ff00 !important; 
-  z-index: 10;
-  position: relative;
+/* 5) MAIN CONTENT on home page */
+.home-content {
+  min-height: 100vh; /* fill screen if you want */
+  color: #0f0;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
-/* Navbar links in neon green */
+/* 6) NAV LINKS, glitch text, etc. */
 .nav-link, .navbar-brand {
   color: #0f0 !important;
 }
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg 
-    viewBox='0 0 30 30' 
-    xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%230f0'
-    stroke-width='2'
-    stroke-linecap='round'
-    stroke-miterlimit='10'
-    d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-/* 5) Main content style for better readability */
-.main-content {
-  color: #0f0;
-  text-shadow: 0 0 4px #000; /* helps separate text from background */
-  position: relative;
-  z-index: 20; /* ensure it's above overlay */
-}
-
-/* OPTIONAL: If you want a white box behind your text
-   .main-content {
-     background-color: rgba(255,255,255,0.1);
-     border-radius: 8px;
-     padding: 1.5rem;
-   }
-*/
-
-/* 6) Glitch text effect for your site title, etc. */
 .glitch-text {
   color: #0f0;
   font-weight: bold;
   animation: glitch 2s infinite;
 }
 @keyframes glitch {
+  /* same glitch keyframes as before */
   0% {
     text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
   }
@@ -90,13 +87,12 @@ html, body {
     text-shadow: 1px 0 #ff00c1, -1px -1px #00fff9;
   }
 }
-
-/* 7) Neon ring around the profile picture */
+/* 7) NEON RING around profile pic */
 .profile-pic-container {
   position: relative;
   width: 220px;
   height: 220px;
-  margin-bottom: 1rem;
+  margin: 0 auto; /* center horizontally inside a text-center parent */
 }
 .myprofile-pic {
   width: 100%;
