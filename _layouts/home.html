@@ -5,66 +5,14 @@ layout: null
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en-US' }}">
   <head>
-    <!-- Inline critical styles to force dark background + basic preloader styles -->
-    <style>
-      /* Immediate dark background to avoid white flash */
-      html, body {
-        background: #000 !important;
-        color: #0f0;
-        margin: 0;
-        padding: 0;
-      }
-      /* Preloader overlay (full screen) */
-      #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #000;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        opacity: 1;             /* We'll fade this out */
-        transition: opacity 1s; /* fade-out transition */
-      }
-      /* Neon spinner */
-      .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid rgba(0, 255, 0, 0.2);
-        border-top-color: #00ff00;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-      }
-      @keyframes spin {
-        0%   { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      /* Countdown text styling */
-      #countdown-text {
-        margin-top: 1rem;
-        font-size: 1.4rem;
-        font-family: "Lucida Console", Monaco, monospace;
-        color: #00ff00;
-        text-shadow: 0 0 5px #00ff00;
-      }
-    </style>
-
-    <!-- External resources -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      integrity="sha512-VGB9...omittedForBrevity..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-VGB9...omittedForBrevity...
+  crossorigin="anonymous" referrerpolicy="no-referrer"
     <meta charset="UTF-8" />
+    <title>{{ page.title }} | {{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000">
 
     <!-- Bootstrap 5 CSS from CDN -->
     <link
@@ -76,23 +24,15 @@ layout: null
       rel="stylesheet"
       href="{{ '/assets/css/style.css' | relative_url }}"
     />
-    <title>{{ page.title }} | {{ site.title }}</title>
   </head>
-
   <body>
-    <!-- PRELOADER with Neon Spinner + Countdown -->
-    <div id="preloader">
-      <div class="spinner"></div>
-      <div id="countdown-text"></div>
-    </div>
-
-    <!-- MATRIX BACKGROUND CANVAS -->
+    <!-- 1) MATRIX BACKGROUND CANVAS -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- PARTIAL BLUR OVERLAY -->
+    <!-- 2) A DARK OVERLAY to dim/blur the matrix a bit -->
     <div id="matrix-overlay"></div>
 
-    <!-- NAVBAR (transparent) -->
+    <!-- 3) NAVBAR -->
     <nav class="navbar navbar-expand-lg custom-navbar">
       <div class="container-fluid">
         <a class="navbar-brand glitch-text" href="{{ '/' | absolute_url }}">
@@ -140,6 +80,7 @@ layout: null
     <script>
       const canvas = document.getElementById("matrix-canvas");
       const ctx = canvas.getContext("2d");
+
       let W, H;
       const fontSize = 16;
       let columns;
@@ -150,13 +91,16 @@ layout: null
         H = window.innerHeight;
         canvas.width = W;
         canvas.height = H;
+
         columns = Math.floor(W / fontSize);
         drops = Array(columns).fill(1);
       }
 
       function drawMatrix() {
+        // translucent black to fade out characters gradually
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, W, H);
+
         ctx.fillStyle = "#0f0";
         ctx.font = fontSize + "px monospace";
 
@@ -174,29 +118,6 @@ layout: null
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
       setInterval(drawMatrix, 50);
-    </script>
-
-    <!-- PRELOADER: 5-second countdown + fade out -->
-    <script>
-      let countdown = 5;
-      const preloader = document.getElementById('preloader');
-      const countdownElement = document.getElementById('countdown-text');
-
-      countdownElement.textContent = countdown;
-
-      const timer = setInterval(() => {
-        countdown--;
-        countdownElement.textContent = countdown;
-
-        if(countdown <= 0) {
-          clearInterval(timer);
-          // Fade out preloader
-          preloader.style.opacity = '0';
-          setTimeout(() => {
-            preloader.remove(); // remove from DOM so it doesn't block anything
-          }, 1000);
-        }
-      }, 1000);
     </script>
   </body>
 </html>
