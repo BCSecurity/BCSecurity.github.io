@@ -3,14 +3,13 @@ layout: home
 title: "Home"
 ---
 
-<!-- Example: a row with your neon ring image plus text -->
 <div class="text-box">
   <div class="row align-items-center justify-content-center">
     <div class="col-md-4 text-center mb-4 mb-md-0">
       <div class="profile-pic-container">
         <img
           src="/assets/images/biophoto.jpg"
-          alt="Profile Picture"
+          alt="Profile Picture of BCSecurity"
           class="myprofile-pic"
         />
       </div>
@@ -20,7 +19,7 @@ title: "Home"
       <h4>CSOC Engineer - MDR</h4>
       <p>
         Hello! I'm currently a Cyber Security Engineer focusing on Incident Response 
-        and Threat Intelligence. I also enjoy learning about malware behaviors. What this blog is all about :
+        and Threat Intelligence. I also enjoy learning about malware behaviors. What this blog is all about:
       </p>
       <ul>
          <li>Static/Dynamic Malware Analysis</li>
@@ -29,31 +28,28 @@ title: "Home"
          <li>Threat Reports</li>
       </ul>
       <p>Check out my <a href="/blog/">latest posts</a>!</p>
- <!-- 1) LinkedIn link with icon -->
       <p class="mt-4">
         <strong>Find me on:</strong> 
         <a 
-          href="www.linkedin.com/in/augustin-a-5a9a72160E" 
+          href="https://www.linkedin.com/in/augustin-a-5a9a72160E" 
           target="_blank" 
           rel="noopener noreferrer"
         >
           <i class="fab fa-linkedin"></i> LinkedIn
         </a>
       </p>
-<!-- 2) Hacker Quote Widget -->
       <div class="mt-4" id="quote-widget">
         <strong>Cyber Quote of the Moment:</strong>
         <div id="quote-text" style="margin-top: 0.5rem;">
-          <!-- Filled by JS below -->
+          <!-- Quote will load via JavaScript -->
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Small inline script for the Hacker Quote Widget -->
 <script>
-  // Array of hacking/cybersecurity quotes
+  // Array of cybersecurity quotes
   const quotes = [
     "“The quieter you become, the more you are able to hear.” — Kali Linux motto",
     "“Hackers are today's explorers.” — Paul Graham",
@@ -62,10 +58,9 @@ title: "Home"
     "“Hackers are breaking the systems for profit. Before, it was about intellectual curiosity and pursuit of knowledge.” — Kevin Mitnick"
   ];
 
-  // Grab a random quote
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-  // Display it in the #quote-text div
+  // Display a random quote on page load
   document.addEventListener("DOMContentLoaded", () => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     const quoteText = document.getElementById("quote-text");
     if (quoteText) {
       quoteText.textContent = randomQuote;
