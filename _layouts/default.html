@@ -15,11 +15,11 @@ layout: null
     <!-- Custom Hacker Style Override -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   </head>
-  <body class="bg-black text-success"> 
+  <body class="bg-black text-success">
     <!-- 
-      bg-black => black background 
-      text-success => Bootstrap’s “success” color is green. 
-      We'll override further in style.css if needed.
+      bg-black => black background
+      text-success => Bootstrap’s “success” color is green
+      Additional color/style overrides can go in style.css
     -->
 
     <!-- NAVBAR -->
@@ -30,14 +30,16 @@ layout: null
           {{ site.title }}
         </a>
 
-        <!-- Toggler (for mobile) -->
-        <button class="navbar-toggler text-success border-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: 1px solid #3f3;">
+        <!-- Navbar Toggler (mobile) -->
+        <button class="navbar-toggler text-success border-success" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+          style="border: 1px solid #3f3;">
           <span class="navbar-toggler-icon" style="color:#3f3;"></span>
         </button>
 
         <!-- Nav Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto"> <!-- ms-auto pushes the menu to the right side -->
+          <ul class="navbar-nav ms-auto"> <!-- ms-auto pushes nav items to the right side -->
             <li class="nav-item">
               <a class="nav-link text-success" href="{{ '/' | absolute_url }}">Home</a>
             </li>
