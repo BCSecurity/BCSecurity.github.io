@@ -1,30 +1,80 @@
-/* Force black background and bright green text */
+/* Base Hacker Colors + Fonts */
 body {
-  background-color: #000 !important; 
-  color: #3f3 !important; 
+  background-color: #000 !important;
+  color: #0f0 !important; /* super bright green */
   font-family: "Lucida Console", Monaco, monospace;
   margin: 0;
   padding: 0;
 }
 
-/* Override Bootstrap “success” color to a neon green: */
-.text-success,
-.nav-link.text-success {
-  color: #00ff00 !important; /* or #0f0, #3f3, your preference */
+/* Neon border for the navbar bottom */
+.neon-border-bottom {
+  border-bottom: 3px solid #00ff00 !important; 
 }
 
-/* Mobile toggle icon (hamburger) color override */
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' 
-  xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2300ff00' stroke-width='2' 
-  stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+/* 
+  Glitch text effect 
+  We'll do a keyframe that shifts text shadow and uses an "after" pseudo-element 
+*/
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  color: #00ff00;
+  animation: glitch 1.5s infinite;
 }
 
-/* Center your profile photo */
+/* "Ghost" duplicates for the glitch effect */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  color: #00ff00;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+}
+
+/* Because we didn't set data-text, let's re-use the actual text via JS or we can just copy the text. 
+   If you want a "manual" approach, do:
+   <span class="glitch-text" data-text="BCSecurity">BCSecurity</span>
+*/
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
+  }
+  20% {
+    text-shadow: 2px 2px #ff00c1, -2px 0 #00fff9;
+  }
+  40% {
+    text-shadow: -2px 2px #ff00c1, 2px 0 #00fff9;
+  }
+  60% {
+    text-shadow: -2px -2px #ff00c1, 2px 2px #00fff9;
+  }
+  80% {
+    text-shadow: 2px 0 #ff00c1, -2px -2px #00fff9;
+  }
+  100% {
+    text-shadow: -2px 2px #ff00c1, 2px 0 #00fff9;
+  }
+}
+
+/* Profile Pic: center on small screens, right-float on medium screens. */
 .myprofile-pic {
-  display: block; 
-  margin: 0 auto; /* center horizontally */
-  max-width: 200px;
+  max-width: 280px;
+  border: 2px solid #0f0;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
+}
+
+.float-md-end {
+  float: none;
+}
+@media (min-width: 768px) {
+  .float-md-end {
+    float: right;
+    margin-left: 2rem;
+  }
 }
