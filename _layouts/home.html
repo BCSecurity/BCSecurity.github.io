@@ -5,11 +5,62 @@ layout: null
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en-US' }}">
   <head>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  integrity="sha512-VGB9...omittedForBrevity...
-  crossorigin="anonymous" referrerpolicy="no-referrer"
+    <!-- Inline critical styles to force dark background + preloader styling -->
+    <style>
+      /* Immediate dark background to avoid white flash */
+      html, body {
+        background: #000 !important;
+        color: #0f0;
+        margin: 0;
+        padding: 0;
+      }
+      /* Preloader overlay (full screen) */
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;               /* We'll fade this out */
+        transition: opacity 0.8s; /* fade-out transition */
+      }
+      /* Neon spinner */
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(0, 255, 0, 0.2);
+        border-top-color: #00ff00;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+      }
+      @keyframes spin {
+        0%   { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      /* Countdown text styling */
+      #countdown-text {
+        margin-top: 1rem;
+        font-size: 1.4rem;
+        font-family: "Lucida Console", Monaco, monospace;
+        color: #00ff00;
+        text-shadow: 0 0 5px #00ff00;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-VGB9...omittedForBrevity..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <meta charset="UTF-8" />
     <title>{{ page.title }} | {{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,6 +77,12 @@ layout: null
     />
   </head>
   <body>
+    <!-- Preloader with Neon Spinner + 3-sec countdown -->
+    <div id="preloader">
+      <div class="spinner"></div>
+      <div id="countdown-text"></div>
+    </div>
+
     <!-- 1) MATRIX BACKGROUND CANVAS -->
     <canvas id="matrix-canvas"></canvas>
 
@@ -71,6 +128,14 @@ layout: null
     <!-- MAIN CONTENT WRAPPER -->
     <div class="container py-5 main-content">
       {{ content }}
+
+      <!-- 4) "Cyber Tip" Widget (example) -->
+      <div class="mt-5 p-3 text-box">
+        <h3 class="mb-3">Cyber Tip of the Day</h3>
+        <p id="cyber-tip" style="margin: 0;">
+          <!-- Filled by JS with a random tip -->
+        </p>
+      </div>
     </div>
 
     <!-- Bootstrap JS -->
@@ -80,7 +145,6 @@ layout: null
     <script>
       const canvas = document.getElementById("matrix-canvas");
       const ctx = canvas.getContext("2d");
-
       let W, H;
       const fontSize = 16;
       let columns;
@@ -97,7 +161,7 @@ layout: null
       }
 
       function drawMatrix() {
-        // translucent black to fade out characters gradually
+        // translucent black for trailing effect
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, W, H);
 
@@ -118,6 +182,48 @@ layout: null
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
       setInterval(drawMatrix, 50);
+    </script>
+
+    <!-- PRELOADER: 3-second countdown + fade out -->
+    <script>
+      let countdown = 3;
+      const preloader = document.getElementById('preloader');
+      const countdownElement = document.getElementById('countdown-text');
+
+      countdownElement.textContent = countdown;
+
+      const timer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+
+        if(countdown <= 0) {
+          clearInterval(timer);
+          // Fade out preloader
+          preloader.style.opacity = '0';
+          setTimeout(() => {
+            preloader.remove();
+          }, 800);
+        }
+      }, 1000);
+    </script>
+
+    <!-- Cyber Tip Widget: random tip in #cyber-tip -->
+    <script>
+      const tips = [
+        "Always use strong, unique passwords for each account.",
+        "Keep software up to date to patch known vulnerabilities.",
+        "Enable multi-factor authentication wherever possible.",
+        "Encrypt sensitive data at rest and in transit.",
+        "Regularly backup important files to offline storage.",
+        "Beware of phishing emails and suspicious links.",
+        "Use a password manager to generate and store passwords."
+      ];
+
+      const randomTip = tips[Math.floor(Math.random() * tips.length)];
+      const tipElement = document.getElementById("cyber-tip");
+      if (tipElement) {
+        tipElement.textContent = randomTip;
+      }
     </script>
   </body>
 </html>
