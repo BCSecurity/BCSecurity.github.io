@@ -1,7 +1,14 @@
-title: "Security Blog "
-description: "Malware Reports, IoCs, and more"
-theme: minima
-# Feel free to adjust or add more config settings here
+title: " Cybersecurity Blog"
+description: "Malware Reports, IoCs, Threat Analysis, etc."
 
-# If you want to use categories or collections later, you can add them here.
-# For now, keep it minimal.
+# This tells GitHub Pages to fetch the Hacker theme from the pages-themes repo.
+remote_theme: pages-themes/hacker@v0.2.0
+
+# This plugin is required for remote themes to work on GitHub Pages.
+plugins:
+  - jekyll-remote-theme
+
+# Optional: You can add or tweak other Jekyll settings here, e.g.:
+# markdown: kramdown
+# exclude:
+#   - README.md
