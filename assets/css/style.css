@@ -1,0 +1,47 @@
+/* Basic flex layout for a sidebar + main content */
+#wrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  max-width: 1100px; /* or any width you prefer */
+}
+
+/* The sidebar on the left side */
+#sidebar {
+  width: 250px;          /* adjust to your liking */
+  padding: 1rem;
+  margin-right: 1rem;
+  background-color: #000; /* black background (matches Hacker theme) */
+  border-right: 2px solid #3f3; /* a green border (optional) */
+}
+
+/* The main content area */
+#main-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Optional style for the photo in sidebar */
+.sidebar-photo {
+  width: 100%;
+  border-radius: 5px; /* slightly rounded corners */
+  margin-bottom: 1rem;
+}
+
+/* Hacker theme uses green (#3f3) for text highlights, so let's keep consistent */
+#sidebar strong {
+  font-size: 1.2rem;
+  color: #3f3;
+}
+
+/* For consistency, ensure the body background is black. Hacker theme often does this anyway. */
+body {
+  background-color: #000;
+  color: #3f3; /* green text */
+  font-family: "Lucida Console", Monaco, monospace; /* typical “hackerish” fonts */
+}
+
+/* Ensure hyperlinks are green or something consistent */
+a {
+  color: #3f3;
+}
