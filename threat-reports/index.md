@@ -25,7 +25,7 @@ permalink: /threat-reports/
             style="object-fit: cover; height: 200px;"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
+            <h5 class="card-title">{{ Multi Stage Malware Infection }}</h5>
           </div>
         </a>
       </div>
