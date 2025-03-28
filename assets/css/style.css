@@ -128,12 +128,13 @@ html, body {
   color: inherit; /* keep text color consistent */
 }
 
-/* Hover-card transition & effect */
 .hover-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .hover-card:hover {
   transform: scale(1.03);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
+
 
